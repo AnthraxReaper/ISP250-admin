@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Menu</title>
+    <title>Update Employee</title>
     <style>
         /* CSS styles */
         body {
@@ -35,13 +35,20 @@
         .sidebar .menu {
             list-style: none;
             padding: 0;
-
         }
 
-        .sidebar .menu li {
-            padding: 15px 20px;
-            cursor: pointer;
-        }
+		.sidebar .menu li {
+			padding: 15px 20px;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.sidebar .menu .icon {
+			margin-left: 10px;
+			font-size: 16px;
+		}
 
         .sidebar .menu li:hover {
             background-color: #A32F2F;
@@ -114,14 +121,14 @@
 </head>
 <body>
 <?php
-$empid = $_GET['Emp_ID']; // Get the Menu ID from the URL
+$employeeid = $_GET['Employee_ID']; // Get the Menu ID from the URL
 $dbc = mysqli_connect("localhost", "root", "", "restaurant"); // Connect to the database
 
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql = "SELECT * FROM employee WHERE Emp_ID = '$empid'"; // Fetch the menu item based on Emp_ID
+$sql = "SELECT * FROM employee WHERE Employee_ID = '$employeeid'"; // Fetch the menu item based on Employee_ID
 $result = mysqli_query($dbc, $sql);
 
 if (false === $result) {
@@ -130,7 +137,7 @@ if (false === $result) {
 
 $row = mysqli_fetch_assoc($result);
 ?>
-<form action="employeeupdprocess.php?fempid=<?php echo $empid; ?>" method="post">
+<form action="employeeupdprocess.php?femployeeid=<?php echo $employeeid; ?>" method="post">
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">

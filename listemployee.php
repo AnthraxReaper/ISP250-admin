@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update/Delete Employee</title>
+    <title>List Employee</title>
     <style>
         /* CSS styles */
         body {
@@ -142,7 +142,7 @@
 				<li onclick="window.location.href='listfeedback.php';">
 					View Feedback <span class="icon">💬</span>
 				</li>
-				<li class="logout" onclick="window.location.href='frmadminlogin.php';">
+				<li class="logout" onclick="window.location.href='start_page.php';">
 					Logout <span class="icon">🚪</span>
 				</li>
 			</ul>
@@ -150,17 +150,18 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <div class="header">Update/Delete Employee</div>
+            <div class="header">Employee List</div>
             <div class="content">
                 <!-- Menu Details Table -->
                 <h3 align="center"><font color="#000000">Employee Details</font></h3>
                 <table align="center" border="1">
                     <tr>
+                        <th><font color="#FFFFFF">Employee ID</font></th>
                         <th><font color="#FFFFFF">Employee Name</font></th>
 						<th><font color="#FFFFFF">Employee First Name</font></th>
 						<th><font color="#FFFFFF">Employee Last Name</font></th>
 						<th><font color="#FFFFFF">Employee IC</font></th>
-						<th><font color="#FFFFFF">Employee Date of Birth</font></th>
+						<th><font color="#FFFFFF">Employee DOB</font></th>
                         <th><font color="#FFFFFF">Employee Phone</font></th>
                         <th><font color="#FFFFFF">Employee Address</font></th>
 						<th><font color="#FFFFFF">Employee Emergency Number</font></th>
@@ -179,6 +180,7 @@
                     $result = mysqli_query($dbc, $sql);
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo '<tr>
+                                <td><font color="#000000">' . $row['Employee_ID'] . '</font></td>
                                 <td><font color="#000000">' . $row['Emp_Name'] . '</font></td>
 								<td><font color="#000000">' . $row['Emp_FirstName'] . '</font></td>
 								<td><font color="#000000">' . $row['Emp_LastName'] . '</font></td>
@@ -189,8 +191,8 @@
 								<td><font color="#000000">' . $row['Emp_EmergencyNo'] . '</font></td>
 								<td><font color="#000000">' . $row['Emp_Email'] . '</font></td>
 								<td><font color="#000000">' . $row['Emp_Password'] . '</font></td>
-                                <td><a href="fupdemployee.php?Emp_ID=' . $row['Emp_ID'] . '" class="btn btn-warning" role="button">Update</a></td>
-                                <td><a href="fdelemployee.php?Emp_ID=' . $row['Emp_ID'] . '" class="btn btn-danger" role="button">Delete</a></td>
+                                <td><a href="fupdemployee.php?Employee_ID=' . $row['Employee_ID'] . '" class="btn btn-warning" role="button">Update</a></td>
+                                <td><a href="fdelemployee.php?Employee_ID=' . $row['Employee_ID'] . '" class="btn btn-danger" role="button">Delete</a></td>
                               </tr>';
                     }
                     ?>

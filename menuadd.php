@@ -1,5 +1,5 @@
 <?php
-// assign data from menu form into variables
+// Assign data from menu form into variables
 $menuname = $_POST['fmenuname'];
 $menutype = $_POST['fmenutype'];
 $menuprice = $_POST['fmenuprice'];
@@ -17,27 +17,27 @@ $menuprice = mysqli_real_escape_string($dbc, $menuprice);
 
 // Handle file upload
 if (isset($_FILES['fmenupicture']) && $_FILES['fmenupicture']['error'] == UPLOAD_ERR_OK) {
-    $uploadDir = 'Uploads/Menu Pictures/'; // Directory to save files
+    $uploadDir = 'foodimage/'; // Directory to save files
     $menupicture = basename($_FILES['fmenupicture']['name']);
     $uploadFile = $uploadDir . $menupicture;
 
     // Move uploaded file to the desired directory
     if (move_uploaded_file($_FILES['fmenupicture']['tmp_name'], $uploadFile)) {
-        // SQL statement to insert data into the database
+        // Prepare the SQL statement to insert data into the database
         $sql = "INSERT INTO `menu`(`Menu_Name`, `Menu_Type`, `Menu_Price`, `Menu_Picture`) 
-                VALUES ('$menuname', '$menutype', '$menuprice', '$menupicture')";
+                VALUES ('$menuname', '$menutype', '$menuprice', '$uploadFile')"; // Use $uploadFile for the path
 
         $results = mysqli_query($dbc, $sql);
 
         if ($results) {
             mysqli_commit($dbc);
             // Display success message
-            echo '<script>alert("Record Had Been Added");</script>';
+            echo '<script>alert("Record Has Been Added");</script>';
             echo '<script>window.location.assign("listmenu.php");</script>';
         } else {
             mysqli_rollback($dbc);
             // Display error message
-            echo '<script>alert("Data Is Invalid, No Record Been Added");</script>';
+            echo '<script>alert("Data Is Invalid, No Record Has Been Added");</script>';
             echo '<script>window.location.assign("frmaddmenu.php");</script>';
         }
     } else {

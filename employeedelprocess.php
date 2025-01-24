@@ -4,9 +4,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Get the employee ID from URL
-$empid = isset($_GET['fempid']) ? $_GET['fempid'] : ''; 
+$employeeid = isset($_GET['fempid']) ? $_GET['fempid'] : ''; 
 
-if (empty($empid)) {
+if (empty($employeeid)) {
     echo 'Employee ID is missing.';
     exit;
 }
@@ -26,7 +26,7 @@ if (isset($_POST['confirm_delete']) && $_POST['confirm_delete'] == 'yes') {
 	$empaddress = mysqli_real_escape_string($dbc, $empaddress);
     
     // Perform the deletion query
-    $sql = "DELETE FROM employee WHERE Emp_ID = '$empid'";
+    $sql = "DELETE FROM employee WHERE Employee_ID = '$employeeid'";
     $result = mysqli_query($dbc, $sql);
 
     if ($result) {
@@ -61,6 +61,6 @@ if (isset($_POST['confirm_delete']) && $_POST['confirm_delete'] == 'yes') {
 ?>
 
 <!-- Hidden Form to submit the deletion -->
-<form id="delete_form" action="employeedelprocess.php?fempid=<?php echo $empid; ?>" method="POST" style="display:none;">
+<form id="delete_form" action="employeedelprocess.php?fempid=<?php echo $employeeid; ?>" method="POST" style="display:none;">
     <input type="hidden" name="confirm_delete" value="yes">
 </form>

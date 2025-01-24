@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update/Delete Menu</title>
+    <title>List Menu</title>
     <style>
         /* CSS styles */
         body {
@@ -36,18 +36,18 @@
             padding: 0;
         }
 
-		.sidebar .menu li {
-			padding: 15px 20px;
-			cursor: pointer;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
+        .sidebar .menu li {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-		.sidebar .menu .icon {
-			margin-left: 10px;
-			font-size: 16px;
-		}
+        .sidebar .menu .icon {
+            margin-left: 10px;
+            font-size: 16px;
+        }
 
         .sidebar .menu li:hover {
             background-color: #A32F2F;
@@ -73,38 +73,38 @@
             overflow-y: auto;
         }
 
-		.search-container {
-			display: flex;
-			margin-bottom: 20px;
-			width: 100%; /* Ensures the container spans the entire width of the content */
-		}
+        .search-container {
+            display: flex;
+            margin-bottom: 20px;
+            width: 100%; /* Ensures the container spans the entire width of the content */
+        }
 
-		.search-form {
-			display: flex;
-			width: 100%; /* Makes the search form span the entire container */
-		}
+        .search-form {
+            display: flex;
+            width: 100%; /* Makes the search form span the entire container */
+        }
 
-		.search-input {
-			flex: 1;
-			padding: 10px;
-			border: 1px solid #ddd;
-			border-radius: 5px 0 0 5px;
-			font-size: 16px;
-		}
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
 
-		.search-button {
-			padding: 10px 20px;
-			background-color: #8B1F1F;
-			color: white;
-			border: none;
-			border-radius: 0 5px 5px 0;
-			cursor: pointer;
-			font-size: 16px;
-		}
+        .search-button {
+            padding: 10px 20px;
+            background-color: #8B1F1F;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-		.search-button:hover {
-			background-color: #A32F2F;
-		}
+        .search-button:hover {
+            background-color: #A32F2F;
+        }
 
         table {
             width: 100%;
@@ -146,6 +146,19 @@
         .btn-danger:hover {
             background-color: #d32f2f;
         }
+
+        img {
+            width: 100px; /* Set a fixed width */
+            height: 100px; /* Set a fixed height */
+            object-fit: cover; /* Ensures the image covers the area without distortion */
+            border-radius: 5px; /* Optional: adds rounded corners */
+        }
+
+        .no-results {
+            color: red;
+            text-align: center;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -156,49 +169,49 @@
                 <h2>ADMIN</h2>
             </div>
             <ul class="menu">
-				<li onclick="window.location.href='frmaddmenu.php';">
-					Add Menu <span class="icon">📄</span>
-				</li>
-				<li onclick="window.location.href='listmenu.php';">
-					Update/Delete Menu <span class="icon">📝</span>
-				</li>
-				<li onclick="window.location.href='frmaddemployee.php';">
-					Add Employee <span class="icon">👤</span>
-				</li>
-				<li onclick="window.location.href='listemployee.php';">
-					Update/Delete Employee <span class="icon">🔧</span>
-				</li>
-				<li onclick="window.location.href='listorderdetail.php';">
-					View Order Detail <span class="icon">📊</span>
-				</li>
-				<li onclick="window.location.href='listfeedback.php';">
-					View Feedback <span class="icon">💬</span>
-				</li>
-				<li class="logout" onclick="window.location.href='frmadminlogin.php';">
-					Logout <span class="icon">🚪</span>
-				</li>
-			</ul>
+                <li onclick="window.location.href='frmaddmenu.php';">
+                    Add Menu <span class="icon">📄</span>
+                </li>
+                <li onclick="window.location.href='listmenu.php';">
+                    Update/Delete Menu <span class="icon">📝</span>
+                </li>
+                <li onclick="window.location.href='frmaddemployee.php';">
+                    Add Employee <span class="icon">👤</span>
+                </li>
+                <li onclick="window.location.href='listemployee.php';">
+                    Update/Delete Employee <span class="icon">🔧</span>
+                </li>
+                <li onclick="window.location.href='listorderdetail.php';">
+                    View Order Detail <span class="icon">📊</span>
+                </li>
+                <li onclick="window.location.href='listfeedback.php';">
+                    View Feedback <span class="icon">💬</span>
+                </li>
+                <li class="logout" onclick="window.location.href='start_page.php';">
+                    Logout <span class="icon">🚪</span>
+                </li>
+            </ul>
         </div>
 
         <!-- Main Content -->
         <div class="main-content">
-            <div class="header">Update/Delete Menu</div>
+            <div class="header">Menu List</div>
             <div class="content">
                 <!-- Search Bar -->
                 <div class="search-container">
-					<form method="GET" action="listmenu.php" class="search-form">
-						<input 
-							type="text" 
-							name="search" 
-							placeholder="Search menu..." 
-							class="search-input">
-						<button 
-							type="submit" 
-							class="search-button">
-							Search
-						</button>
-					</form>
-				</div>
+                    <form method="GET" action="listmenu.php" class="search-form">
+                        <input 
+                            type="text" 
+                            name="search" 
+                            placeholder="Search menu name or menu type..." 
+                            class="search-input">
+                        <button 
+                            type="submit" 
+                            class="search-button">
+                            Search
+                        </button>
+                    </form>
+                </div>
 
                 <!-- Menu Details Table -->
                 <h3 align="center"><font color="#000000">Menu Details</font></h3>
@@ -225,17 +238,22 @@
                         $sql .= " WHERE Menu_Name LIKE '%$search%' OR Menu_Type LIKE '%$search%'";
                     }
                     $result = mysqli_query($dbc, $sql);
+                    $num_rows = mysqli_num_rows($result); // Get the number of rows returned
 
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<tr>
-                                <td><font color="#000000">' . $row['Menu_ID'] . '</font></td>
-                                <td><font color="#000000">' . $row['Menu_Name'] . '</font></td>
-                                <td><font color="#000000">' . $row['Menu_Type'] . '</font></td>
-                                <td><font color="#000000">' . $row['Menu_Price'] . '</font></td>
-                                <td><img src="Uploads/Menu Pictures/' . $row['Menu_Picture'] . '" alt="Not Available" width="200"></td>
-                                <td><a href="fupdmenu.php?Menu_ID=' . $row['Menu_ID'] . '" class="btn btn-warning" role="button">Update</a></td>
-                                <td><a href="fdelmenu.php?Menu_ID=' . $row['Menu_ID'] . '" class="btn btn-danger" role="button">Delete</a></td>
-                              </tr>';
+                    if ($num_rows == 0) {
+                        echo '<tr><td colspan="7" class="no-results">No results found for "' . htmlspecialchars($search) . '"</td></tr>';
+                    } else {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<tr>
+                                    <td><font color="#000000">' . $row['Menu_ID'] . '</font></td>
+                                    <td><font color="#000000">' . $row['Menu_Name'] . '</font></td>
+                                    <td><font color="#000000">' . $row['Menu_Type'] . '</font></td>
+                                    <td><font color="#000000">RM ' . number_format($row['Menu_Price'], 2) . '</font></td>
+                                    <td><img src="' . htmlspecialchars($row['Menu_Picture']) . '" alt="Not Available" width="200"></td>
+                                    <td><a href="fupdmenu.php?Menu_ID=' . $row['Menu_ID'] . '" class="btn btn-warning" role="button">Update</a></td>
+                                    <td><a href="fdelmenu.php?Menu_ID=' . $row['Menu_ID'] . '" class="btn btn-danger" role="button">Delete</a></td>
+                                  </tr>';
+                        }
                     }
                     ?>
                 </table>

@@ -15,7 +15,9 @@ if (empty($menuid)) {
 $menuname = isset($_POST['fmenuname']) ? $_POST['fmenuname'] : '';
 $menutype = isset($_POST['fmenutype']) ? $_POST['fmenutype'] : '';
 $menuprice = isset($_POST['fmenuprice']) ? $_POST['fmenuprice'] : '';
-$menupicture = $_FILES['fmenupicture']['name'] ? $_FILES['fmenupicture']['name'] : '';
+$menupicture = isset($_FILES['fmenupicture']['name']) && !empty($_FILES['fmenupicture']['name']) 
+    ? $_FILES['fmenupicture']['name'] 
+    : '';
 
 // Check if the required form data is provided
 if (empty($menuname) || empty($menutype) || empty($menuprice)) {
@@ -35,41 +37,39 @@ $menuname = mysqli_real_escape_string($dbc, $menuname);
 $menutype = mysqli_real_escape_string($dbc, $menutype);
 $menuprice = mysqli_real_escape_string($dbc, $menuprice);
 
-// Handle file upload if there's a new file
+// Prepare SQL query to update menu details
+$sql_update = "UPDATE menu SET 
+    Menu_Name='$menuname', 
+    Menu_Type='$menutype', 
+    Menu_Price='$menuprice'";
+
+// Handle file upload if a new file is provided
 if ($menupicture) {
-    $target_dir = "Uploads/Menu Picture"; // Folder where images will be saved
+    $target_dir = "foodimage/"; // Folder where images will be saved
     $target_file = $target_dir . basename($_FILES["fmenupicture"]["name"]);
+    
+    // Move the uploaded file to the target directory
     if (move_uploaded_file($_FILES["fmenupicture"]["tmp_name"], $target_file)) {
-        // File uploaded successfully, update the menu picture in the database
+        // Append the picture update to the SQL query with the correct path
+        $sql_update .= ", Menu_Picture='$target_file'";
     } else {
         echo "Sorry, there was an error uploading your file.";
         exit;
     }
 }
 
-// Add the confirmation dialog
-echo '
-<script>
-	window.onload = function() {
-		var confirmation = confirm("Are you sure you want to update this menu item?");
-		if (confirmation) {
-			// If the user clicks "OK", submit the form
-			document.getElementById("update_form").submit();
-		} else {
-			// If the user clicks "Cancel", redirect back to the menu list
-			window.location.assign("listmenu.php");
-		}
-	}
-</script>
-';
+// Add WHERE clause to ensure only the correct menu item is updated
+$sql_update .= " WHERE Menu_ID='$menuid'";
 
-// Create a hidden form for submission
+// Execute the query
+if (mysqli_query($dbc, $sql_update)) {
+    // Redirect to the menu listing page after successful update
+    header("Location: listmenu.php");
+    exit;
+} else {
+    echo "Error updating record: " . mysqli_error($dbc);
+}
+
+// Close the database connection
+mysqli_close($dbc);
 ?>
-
-<!-- Hidden form to submit the menu update -->
-<form id="update_form" action="menuupdprocess.php?fmenuid=<?php echo $menuid; ?>" method="POST" style="display:none;" enctype="multipart/form-data">
-    <input type="hidden" name="fmenuname" value="<?php echo $menuname; ?>">
-    <input type="hidden" name="fmenutype" value="<?php echo $menutype; ?>">
-    <input type="hidden" name="fmenuprice" value="<?php echo $menuprice; ?>">
-    <input type="hidden" name="fmenupicture" value="<?php echo $menupicture; ?>">
-</form>

@@ -40,17 +40,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $row = $result->fetch_assoc();
 			
             // Verify the entered password
-        if ($password === $row['Admin_Password']) {
-            // Successful login
-            $_SESSION['admin'] = $id;
-            header("Location: frmaddmenu.php"); // Redirect to add menu form
-            exit();
+            if ($password === $row['Admin_Password']) {
+                // Successful login
+                $_SESSION['admin'] = $id;
+                header("Location: frmaddmenu.php"); // Redirect to add menu form
+                exit();
+            } else {
+                $error = "Invalid password.";
+            }
         } else {
-            $error = "Invalid password.";
+            $error = "Invalid ID.";
         }
-    } else {
-        $error = "Invalid ID.";
-    }
 
         $stmt->close();
     }
@@ -83,11 +83,12 @@ $conn->close();
 			display: flex;
 			background-color: #540909;
 			padding: 30px;
-			border-radius: 0px;
+			border-radius: 10px; /* Added border radius for a smoother look */
 			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 			align-items: center;
 			justify-content: space-between;
-			width: 100%;
+			width: 80%; /* Adjusted width for responsiveness */
+			max-width: 800px; /* Maximum width for larger screens */
 		}
 
 		.image {

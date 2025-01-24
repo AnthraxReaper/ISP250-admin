@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Menu</title>
+    <title>Delete Menu</title>
     <style>
         /* CSS styles */
         body {
@@ -32,16 +32,23 @@
 			
         }
 
-        .sidebar .menu {
+		.sidebar .menu {
             list-style: none;
             padding: 0;
-
         }
 
-        .sidebar .menu li {
-            padding: 15px 20px;
-            cursor: pointer;
-        }
+		.sidebar .menu li {
+			padding: 15px 20px;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.sidebar .menu .icon {
+			margin-left: 10px;
+			font-size: 16px;
+		}
 
         .sidebar .menu li:hover {
             background-color: #A32F2F;
@@ -175,8 +182,12 @@ $row = mysqli_fetch_assoc($result);
                         <input type="number" name="fmenuprice" value='<?php echo $row['Menu_Price']; ?>' disabled>
 						
 						<label for="menu_picture">Menu Picture</label>
-                        <input type="file" accept="image/*" name="fmenupicture" value='<?php echo $row['Menu_Picture']; ?>' disabled>
-
+						<!-- Display the current image -->
+						<?php if ($row['Menu_Picture']): ?>
+							<img src="<?php echo htmlspecialchars($row['Menu_Picture'], ENT_QUOTES, 'UTF-8'); ?>" alt="Menu Image" width="100">
+						<?php else: ?>
+							<p>No image available.</p>
+						<?php endif; ?>
                         <div class="button-group">
                             <button type="submit" class="del-btn">Delete</button>
                         </div>
